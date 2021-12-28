@@ -1,0 +1,134 @@
+Sub автоматхисобвакучириш()
+'
+' автоматкучириш
+'
+Dim ws As WorkSheet
+Dim wordcountE  As Integer
+Dim wordcountK As Integer
+Dim wordcountГ As Integer
+Dim wordcountУ As Integer
+Dim ColATotalWordCount As Integer
+Dim PercentageWorde As Double
+Dim PercentageWordк As Double
+Dim PercentageWordг As Double
+Dim PercentageWordу As Double
+
+'
+Do Until Cells(1, 1) = ""
+    
+    Windows("rabochi.xlsm").Activate
+       
+     Sheets("hammasi").Select
+
+'qayodan qatgacha olishi korish kere
+    Range("A2:A26").Select
+    Selection.Copy
+    Sheets("hammasi").Next.Activate
+    Range("A1").Select
+    ActiveSheet.Paste
+    Sheets("hammasi").Select
+'qayodan qatgacha olishi korish kere
+    Range("A27:A51").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Sheets("hammasi").Next.Activate
+    Range("B1").Select
+    ActiveSheet.Paste
+    Sheets("hammasi").Select
+'qayodan qatgacha olishi korish kere
+    Range("A52:A76").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Sheets("hammasi").Next.Activate
+    Range("C1").Select
+    ActiveSheet.Paste
+    Sheets("hammasi").Select
+'qayodan qatgacha olishi korish kere
+    Range("A77:A101").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Sheets("hammasi").Next.Activate
+    Range("D1").Select
+    ActiveSheet.Paste
+    
+‘ sanash
+
+    Range("G1").Select
+    Range("G1").FormulaR1C1 = "е"
+    Range("I1").Select
+    ActiveCell.FormulaR1C1 = "к"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = "г"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = "у"
+    Range("F2").Select
+    ActiveCell.FormulaR1C1 = "1-гр"
+    Range("F3").Select
+    
+    Range("G2").Select
+   Range("G2").FormulaR1C1 = "=COUNTIF(RC[-6]:R[25]C[-6],""е"")"
+         wordcountE = Range("G2")
+         Range("I2").Select
+   Range("I2").FormulaR1C1 = "=COUNTIF(RC[-8]:R[25]C[-8],""к"")"
+         wordcountK = Range("I2")
+          Range("K2").Select
+   Range("K2").FormulaR1C1 = "=COUNTIF(R[-1]C[-10]:R[23]C[-10],""г"")"
+         wordcountГ = Range("K2")
+          Range("M2").Select
+   Range("M2").FormulaR1C1 = "=COUNTIF(RC[-12]:R[25]C[-12],""у"")"
+         wordcountУ = Range("M2")
+    ColATotalWordCount = Application.WorksheetFunction.CountA(Columns(1))
+    Range("F2") = "1-гр" & (ColATotalWordCount)
+    
+    PercentageWorde = (100 * wordcountE) / ColATotalWordCount
+    Range("H2") = PercentageWorde
+    
+      PercentageWordк = (100 * wordcountK) / ColATotalWordCount
+    Range("J2") = PercentageWordк
+    
+    PercentageWordг = (100 * wordcountГ) / ColATotalWordCount
+    Range("L2") = PercentageWordг
+    
+    PercentageWordу = (100 * wordcountУ) / ColATotalWordCount
+    Range("N2") = PercentageWordу
+    ' текш процент Макрос
+'
+
+    Range("P2").Select
+        Range("P2").FormulaR1C1 = "=SUM(RC[-8],RC[-6],RC[-4],RC[-2])"
+    Range("P3").Select
+        Range("P3").FormulaR1C1 = "=SUM(RC[-8],RC[-6],RC[-4],RC[-2])"
+    Range("P4").Select
+        Range("P4").FormulaR1C1 = "=SUM(RC[-8],RC[-6],RC[-4],RC[-2])"
+    Range("P5").Select
+        Range("P5").FormulaR1C1 = "=SUM(RC[-8],RC[-6],RC[-4],RC[-2])"
+
+‘ kuchirish
+
+
+     Range("A1:X30").Select
+    Selection.Copy
+        
+    Windows("do loop.xlsx").Activate
+    
+    
+    ActiveSheet.Paste
+    ActiveSheet.Next.Activate
+    
+     
+         Windows("rabochi.xlsm").Activate
+    
+    Application.CutCopyMode = False
+    ActiveSheet.Select
+    ActiveWindow.SelectedSheets.Delete
+    'pastda list nomini "hammasi" boladi
+    Sheets("hammasi").Select
+    ActiveSheet.Columns("A").Select
+    Selection.Delete Shift:=xlToLeft
+    
+    
+    Loop
+    
+
+End Sub
+
